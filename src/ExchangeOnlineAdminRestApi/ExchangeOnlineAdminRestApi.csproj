@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<IsPackable>true</IsPackable>
+		<LangVersion>latest</LangVersion>
+		<PackageVersion>1.0.1</PackageVersion>
+		<PackageId>ExchangeOnlineAdminRestApi</PackageId>
+		<Title>ExchangeOnlineAdminRestApi</Title>
+		<Authors>Claudiney Queiroz</Authors>
+		<Owners>Claudiney Queiroz</Owners>
+		<Description>Invoke Commands Exchange Online PowerShell REST API with C#</Description>
+		<PackageProjectUrl>https://github.com/claudineyqr/ExchangeOnlineAdminRestApi</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/claudineyqr/ExchangeOnlineAdminRestApi</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>ExchangeOnline REST API PowerShell Exchange</PackageTags>
+		<PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<SignAssembly>true</SignAssembly>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Copyright>Copyright © 2023 Claudiney Queiroz.</Copyright>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<NoWarn>$(NoWarn);1591</NoWarn>
+	</PropertyGroup>
+
+</Project>
