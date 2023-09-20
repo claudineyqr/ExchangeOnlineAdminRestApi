@@ -10,7 +10,7 @@ ExchangeOnlineAdminRestApi can be installed using the Nuget package manager or t
 dotnet add package ExchangeOnlineAdminRestApi
 ```
 
-[Register the application in Azure AD and Assign API permissions to the application](https://learn.microsoft.com/en-us/powershell/exchange/app-only-auth-powershell-v2?view=exchange-ps#step-1-register-the-application-in-azure-ad)
+**[Register the application in Azure AD and Assign API permissions to the application](https://learn.microsoft.com/en-us/powershell/exchange/app-only-auth-powershell-v2?view=exchange-ps#step-1-register-the-application-in-azure-ad)**
 
 ### Examples
 

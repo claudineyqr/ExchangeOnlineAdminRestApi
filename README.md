@@ -1,6 +1,6 @@
 # ExchangeOnlineAdminRestApi
 
-[![NuGet](https://img.shields.io/nuget/v/ExchangeOnlineAdminRestApi)](https://nuget.org/packages/ExchangeOnlineAdminRestApi) [![Nuget](https://img.shields.io/nuget/dt/ExchangeOnlineAdminRestApi)](https://nuget.org/packages/ExchangeOnlineAdminRestApi)
+[![NuGet](https://img.shields.io/nuget/v/ExchangeOnlineAdminRestApi)](https://nuget.org/packages/ExchangeOnlineAdminRestApi) [![Nuget](https://img.shields.io/nuget/dt/ExchangeOnlineAdminRestApi)](https://nuget.org/packages/ExchangeOnlineAdminRestApi) [![Donate](https://img.shields.io/static/v1?label=Paypal&message=Donate&color=informational)](https://www.paypal.com/donate/?hosted_button_id=4CTJ6CTWHGUMA)
 
 Invoke Commands Exchange Online PowerShell REST API with C#
 
@@ -12,7 +12,7 @@ ExchangeOnlineAdminRestApi can be installed using the Nuget package manager or t
 dotnet add package ExchangeOnlineAdminRestApi
 ```
 
-[Register the application in Azure AD and Assign API permissions to the application](https://learn.microsoft.com/en-us/powershell/exchange/app-only-auth-powershell-v2?view=exchange-ps#step-1-register-the-application-in-azure-ad)
+**[Register the application in Azure AD and Assign API permissions to the application](https://learn.microsoft.com/en-us/powershell/exchange/app-only-auth-powershell-v2?view=exchange-ps#step-1-register-the-application-in-azure-ad)**
 
 ### Examples
 
