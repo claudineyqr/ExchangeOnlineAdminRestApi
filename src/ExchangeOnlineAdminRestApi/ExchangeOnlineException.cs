@@ -13,7 +13,7 @@ namespace ExchangeOnlineAdminRestApi
     public class ExchangeOnlineException : Exception
     {
         public ExchangeOnlineException(string message, HttpStatusCode statusCode) :
-            base($"HttpStatusCode: {statusCode} / Message: {message}")
+            base(message, new Exception($"HttpStatusCode: {statusCode}"))
         {
 
         }

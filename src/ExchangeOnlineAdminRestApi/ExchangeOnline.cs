@@ -6,6 +6,7 @@
 // License: GNU Affero General Public License v3.0 (GNU AGPLv3)
 
 using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -23,8 +24,8 @@ namespace ExchangeOnlineAdminRestApi
 
         public ExchangeOnline(string tenantId, string apiVersion = "beta")
         {
-            _tenantId = tenantId;
-            _apiVersion = apiVersion;
+            _tenantId = string.IsNullOrEmpty(tenantId) ? throw new ArgumentNullException(nameof(tenantId)) : tenantId;
+            _apiVersion = string.IsNullOrEmpty(apiVersion) ? throw new ArgumentNullException(nameof(apiVersion)) : apiVersion;
         }
 
         /// <summary>
@@ -37,6 +38,9 @@ namespace ExchangeOnlineAdminRestApi
         /// <returns></returns>
         public async Task<string> InvokeCommand(string accessToken, string cmdletName, Hashtable parameters = null, CancellationToken cancellationToken = default)
         {
+            if (string.IsNullOrEmpty(accessToken)) throw new ArgumentNullException(nameof(accessToken));
+            if (string.IsNullOrEmpty(cmdletName)) throw new ArgumentNullException(nameof(cmdletName));
+
             var body = new
             {
                 CmdletInput = new

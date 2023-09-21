@@ -2,10 +2,11 @@
 // This file is part of Project ExchangeOnlineAdminRestApi
 // Author: Claudiney Queiroz (claudiney.queiroz@gmail.com, https://www.linkedin.com/in/claudineyqr/)
 // ProjectUrl: https://github.com/claudineyqr/ExchangeOnlineAdminRestApi
-// Copyright � 2023 Claudiney Queiroz.
+// Copyright © 2023 Claudiney Queiroz.
 // License: GNU Affero General Public License v3.0 (GNU AGPLv3)
 
 using Microsoft.Identity.Client;
+using System;
 using System.Collections;
 using System.Threading.Tasks;
 using Xunit;
@@ -15,6 +16,17 @@ namespace ExchangeOnlineAdminRestApi.Tests
     public class ExchangeOnlineTests
     {
         private const string _tenantId = "1225b609-47f2-...";
+
+        [Theory]
+        [InlineData("", "")]
+        [InlineData("a", "")]
+        [InlineData(null, null)]
+        [InlineData(null, "")]
+        [InlineData("a", null)]
+        public void WhenExchangeOnline_GivenContructorWithParamentersNull_ThenReturnArgumentNullException(string tenantId, string apiVersion)
+        {
+            Assert.Throws<ArgumentNullException>(() => new ExchangeOnline(tenantId, apiVersion));
+        }
 
         [Fact]
         public async Task InvokeCommand_ResultString()
