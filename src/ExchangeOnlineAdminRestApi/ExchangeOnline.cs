@@ -38,22 +38,43 @@ namespace ExchangeOnlineAdminRestApi
         /// <returns></returns>
         public async Task<string> InvokeCommand(string accessToken, string cmdletName, Hashtable parameters = null, CancellationToken cancellationToken = default)
         {
+            var commandOptions = new CommandOptions
+            {
+                CmdletName = cmdletName,
+                Parameters = parameters
+            };
+            return await InvokeCommand(accessToken, commandOptions, cancellationToken);
+        }
+
+        /// <summary>
+        /// Invoke Commands Exchange Online PowerShell REST API
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="commandOptions"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public async Task<string> InvokeCommand(string accessToken, CommandOptions commandOptions, CancellationToken cancellationToken = default)
+        {
             if (string.IsNullOrEmpty(accessToken)) throw new ArgumentNullException(nameof(accessToken));
-            if (string.IsNullOrEmpty(cmdletName)) throw new ArgumentNullException(nameof(cmdletName));
+            if (commandOptions is null) throw new ArgumentNullException(nameof(commandOptions));
+            if (string.IsNullOrEmpty(commandOptions.CmdletName)) throw new ArgumentNullException(nameof(commandOptions.CmdletName));
 
             var body = new
             {
                 CmdletInput = new
                 {
-                    CmdletName = cmdletName,
-                    Parameters = parameters ?? new Hashtable()
+                    commandOptions.CmdletName,
+                    Parameters = ClearParameters(commandOptions.Parameters) ?? new Hashtable()
                 }
             };
 
             var json = JsonConvert.SerializeObject(body);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var client = new HttpClient();
+            var client = new HttpClient
+            {
+                Timeout = TimeSpan.FromSeconds(commandOptions.TimeoutInSeconds)
+            };
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
             var response = await client.PostAsync(GetUriAdminApi(), content, cancellationToken);
@@ -76,13 +97,38 @@ namespace ExchangeOnlineAdminRestApi
         /// <returns></returns>
         public async Task<TResult> InvokeCommand<TResult>(string accessToken, string cmdletName, Hashtable parameters = null, CancellationToken cancellationToken = default)
         {
-            var response = await InvokeCommand(accessToken, cmdletName, parameters, cancellationToken);
+            var commandOptions = new CommandOptions
+            {
+                CmdletName = cmdletName,
+                Parameters = parameters
+            };
+            return await InvokeCommand<TResult>(accessToken, commandOptions, cancellationToken);
+        }
+
+        /// <summary>
+        /// Invoke Commands Exchange Online PowerShell REST API
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="accessToken"></param>
+        /// <param name="commandOptions"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public async Task<TResult> InvokeCommand<TResult>(string accessToken, CommandOptions commandOptions, CancellationToken cancellationToken = default)
+        {
+            var response = await InvokeCommand(accessToken, commandOptions, cancellationToken);
             return JsonConvert.DeserializeObject<TResult>(response);
         }
 
         private string GetUriAdminApi()
         {
             return string.Format(URL_INVOKE_COMMAND, _apiVersion, _tenantId);
+        }
+
+        private static Hashtable ClearParameters(Hashtable parameters)
+        {
+            parameters?.Remove("Credencial");
+            parameters?.Remove("AuthenticationType");
+            return parameters;
         }
     }
 }

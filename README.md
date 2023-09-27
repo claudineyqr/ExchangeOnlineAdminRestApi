@@ -56,10 +56,34 @@ parameters.Add("AccessRights", "SendAs");
 var response = await exchangeOnline.InvokeCommand(accessToken, "Get-RecipientPermission", parameters);
 ```
 
+```
+using ExchangeOnlineAdminRestApi;
+
+
+var exchangeOnline = new ExchangeOnline(tenantId);
+
+var parameters = new Hashtable();
+parameters.Add("Identity", "name-mailbox");
+parameters.Add("AccessRights", "SendAs");
+
+var commandOptions = new CommandOptions
+{
+    CmdletName = "Get-RecipientPermission",
+    Parameters = parameters,
+    TimeoutInSeconds = 200
+};
+
+var response = await exchangeOnline.InvokeCommand(accessToken, commandOptions);
+```
+
 Convert result on object
 
 ```
 var response = await exchangeOnline.InvokeCommand<YouClassResult>(accessToken, "Get-RecipientPermission", parameters);
+```
+
+```
+var response = await exchangeOnline.InvokeCommand<YouClassResult>(accessToken, commandOptions);
 ```
 
 ### Documentation
