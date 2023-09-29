@@ -51,7 +51,7 @@ var parameters = new Hashtable();
 parameters.Add("Identity", "name-mailbox");
 parameters.Add("AccessRights", "SendAs");
 
-var response = await exchangeOnline.InvokeCommand(accessToken, "Get-RecipientPermission", parameters);
+var response = await exchangeOnline.InvokeCommandAsync(accessToken, "Get-RecipientPermission", parameters);
 ```
 
 ```
@@ -71,17 +71,17 @@ var commandOptions = new CommandOptions
     TimeoutInSeconds = 200
 };
 
-var response = await exchangeOnline.InvokeCommand(accessToken, commandOptions);
+var response = await exchangeOnline.InvokeCommandAsync(accessToken, commandOptions);
 ```
 
 Convert result on object
 
 ```
-var response = await exchangeOnline.InvokeCommand<YouClassResult>(accessToken, "Get-RecipientPermission", parameters);
+var response = await exchangeOnline.InvokeCommandAsync<YouClassResult>(accessToken, "Get-RecipientPermission", parameters);
 ```
 
 ```
-var response = await exchangeOnline.InvokeCommand<YouClassResult>(accessToken, commandOptions);
+var response = await exchangeOnline.InvokeCommandAsync<YouClassResult>(accessToken, commandOptions);
 ```
 
 ### Documentation

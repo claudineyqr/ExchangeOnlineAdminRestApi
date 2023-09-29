@@ -36,14 +36,26 @@ namespace ExchangeOnlineAdminRestApi
         /// <param name="parameters"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<string> InvokeCommand(string accessToken, string cmdletName, Hashtable parameters = null, CancellationToken cancellationToken = default)
+        [Obsolete("InvokeCommand is deprecated, please use InvokeCommandAsync")]
+        public async Task<string> InvokeCommand(string accessToken, string cmdletName, Hashtable parameters = null, CancellationToken cancellationToken = default) =>
+            await InvokeCommandAsync(accessToken, cmdletName, parameters, cancellationToken);
+
+        /// <summary>
+        /// Invoke Commands Exchange Online PowerShell REST API
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="cmdletName"></param>
+        /// <param name="parameters"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public async Task<string> InvokeCommandAsync(string accessToken, string cmdletName, Hashtable parameters = null, CancellationToken cancellationToken = default)
         {
             var commandOptions = new CommandOptions
             {
                 CmdletName = cmdletName,
                 Parameters = parameters
             };
-            return await InvokeCommand(accessToken, commandOptions, cancellationToken);
+            return await InvokeCommandAsync(accessToken, commandOptions, cancellationToken);
         }
 
         /// <summary>
@@ -53,7 +65,18 @@ namespace ExchangeOnlineAdminRestApi
         /// <param name="commandOptions"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<string> InvokeCommand(string accessToken, CommandOptions commandOptions, CancellationToken cancellationToken = default)
+        [Obsolete("InvokeCommand is deprecated, please use InvokeCommandAsync")]
+        public async Task<string> InvokeCommand(string accessToken, CommandOptions commandOptions, CancellationToken cancellationToken = default) =>
+            await InvokeCommandAsync(accessToken, commandOptions, cancellationToken);
+
+        /// <summary>
+        /// Invoke Commands Exchange Online PowerShell REST API
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="commandOptions"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public async Task<string> InvokeCommandAsync(string accessToken, CommandOptions commandOptions, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(accessToken)) throw new ArgumentNullException(nameof(accessToken));
             if (commandOptions is null) throw new ArgumentNullException(nameof(commandOptions));
@@ -95,14 +118,27 @@ namespace ExchangeOnlineAdminRestApi
         /// <param name="parameters"></param> 
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<TResult> InvokeCommand<TResult>(string accessToken, string cmdletName, Hashtable parameters = null, CancellationToken cancellationToken = default)
+        [Obsolete("InvokeCommand is deprecated, please use InvokeCommandAsync")]
+        public async Task<TResult> InvokeCommand<TResult>(string accessToken, string cmdletName, Hashtable parameters = null, CancellationToken cancellationToken = default) =>
+            await InvokeCommandAsync<TResult>(accessToken, cmdletName, parameters, cancellationToken);
+
+        /// <summary>
+        /// Invoke Commands Exchange Online PowerShell REST API
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="accessToken"></param>
+        /// <param name="cmdletName"></param>
+        /// <param name="parameters"></param> 
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public async Task<TResult> InvokeCommandAsync<TResult>(string accessToken, string cmdletName, Hashtable parameters = null, CancellationToken cancellationToken = default)
         {
             var commandOptions = new CommandOptions
             {
                 CmdletName = cmdletName,
                 Parameters = parameters
             };
-            return await InvokeCommand<TResult>(accessToken, commandOptions, cancellationToken);
+            return await InvokeCommandAsync<TResult>(accessToken, commandOptions, cancellationToken);
         }
 
         /// <summary>
@@ -113,9 +149,21 @@ namespace ExchangeOnlineAdminRestApi
         /// <param name="commandOptions"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<TResult> InvokeCommand<TResult>(string accessToken, CommandOptions commandOptions, CancellationToken cancellationToken = default)
+        [Obsolete("InvokeCommand is deprecated, please use InvokeCommandAsync")]
+        public async Task<TResult> InvokeCommand<TResult>(string accessToken, CommandOptions commandOptions, CancellationToken cancellationToken = default) =>
+            await InvokeCommandAsync<TResult>(accessToken, commandOptions, cancellationToken);
+
+        /// <summary>
+        /// Invoke Commands Exchange Online PowerShell REST API
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="accessToken"></param>
+        /// <param name="commandOptions"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public async Task<TResult> InvokeCommandAsync<TResult>(string accessToken, CommandOptions commandOptions, CancellationToken cancellationToken = default)
         {
-            var response = await InvokeCommand(accessToken, commandOptions, cancellationToken);
+            var response = await InvokeCommandAsync(accessToken, commandOptions, cancellationToken);
             return JsonConvert.DeserializeObject<TResult>(response);
         }
 

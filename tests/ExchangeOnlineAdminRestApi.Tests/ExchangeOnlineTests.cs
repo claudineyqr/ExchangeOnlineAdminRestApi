@@ -51,6 +51,28 @@ namespace ExchangeOnlineAdminRestApi.Tests
         }
 
         [Fact]
+        public async Task InvokeCommandAsync_ResultString()
+        {
+            // Arrange
+            var exchangeOnline = new ExchangeOnline(_tenantId);
+
+            var parameters = new Hashtable
+            {
+                { "Identity", "test01" },
+                { "Trustee", "claudiney" },
+                { "AccessRights", "SendAs" },
+                { "Credencial", "" },
+                { "AuthenticationType", "" }
+            };
+
+            // Act
+            var response = await exchangeOnline.InvokeCommandAsync(await GetAccessToken(), "Get-RecipientPermission", parameters);
+
+            // Assert
+            Assert.NotNull(response);
+        }
+
+        [Fact]
         public async Task InvokeCommand_ResultObject()
         {
             // Arrange
@@ -65,6 +87,27 @@ namespace ExchangeOnlineAdminRestApi.Tests
 
             // Act
             var response = await exchangeOnline.InvokeCommand<RecipientPermissionResponse>(await GetAccessToken(), "Get-RecipientPermission", parameters);
+
+            // Assert
+            Assert.NotNull(response);
+            Assert.IsType<RecipientPermissionResponse>(response);
+        }
+
+        [Fact]
+        public async Task InvokeCommandAsync_ResultObject()
+        {
+            // Arrange
+            var exchangeOnline = new ExchangeOnline(_tenantId);
+
+            var parameters = new Hashtable
+            {
+                { "Identity", "test01" },
+                { "Trustee", "claudiney" },
+                { "AccessRights", "SendAs" }
+            };
+
+            // Act
+            var response = await exchangeOnline.InvokeCommandAsync<RecipientPermissionResponse>(await GetAccessToken(), "Get-RecipientPermission", parameters);
 
             // Assert
             Assert.NotNull(response);
