@@ -15,7 +15,7 @@ namespace ExchangeOnlineAdminRestApi.Tests
 {
     public class ExchangeOnlineTests
     {
-        private const string _tenantId = "1225b609-47f2-...";
+        private readonly string _tenantId = Environment.GetEnvironmentVariable("EX_TENANTID");
 
         [Theory]
         [InlineData("", "")]
@@ -36,9 +36,11 @@ namespace ExchangeOnlineAdminRestApi.Tests
 
             var parameters = new Hashtable
             {
-                { "Identity", "xxxxxx" },
-                { "Trustee", "yyyyy" },
-                { "AccessRights", "SendAs" }
+                { "Identity", "test01" },
+                { "Trustee", "claudiney" },
+                { "AccessRights", "SendAs" },
+                { "Credencial", "" },
+                { "AuthenticationType", "" }
             };
 
             // Act
@@ -56,8 +58,8 @@ namespace ExchangeOnlineAdminRestApi.Tests
 
             var parameters = new Hashtable
             {
-                { "Identity", "xxxxxx" },
-                { "Trustee", "yyyyy" },
+                { "Identity", "test01" },
+                { "Trustee", "claudiney" },
                 { "AccessRights", "SendAs" }
             };
 
@@ -69,10 +71,10 @@ namespace ExchangeOnlineAdminRestApi.Tests
             Assert.IsType<RecipientPermissionResponse>(response);
         }
 
-        private static async Task<string> GetAccessToken()
+        private async Task<string> GetAccessToken()
         {
-            var clientId = "9c42f740-dcff-...";
-            var clientSecret = "7Va8Q~Ua-...";
+            var clientId = Environment.GetEnvironmentVariable("EX_CLIENTID");
+            var clientSecret = Environment.GetEnvironmentVariable("EX_CLIENTSECRET");
 
             var app = ConfidentialClientApplicationBuilder
                 .Create(clientId)
