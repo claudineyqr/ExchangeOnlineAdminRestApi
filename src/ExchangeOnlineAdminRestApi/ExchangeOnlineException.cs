@@ -8,14 +8,13 @@
 using System;
 using System.Net;
 
-namespace ExchangeOnlineAdminRestApi
-{
-    public class ExchangeOnlineException : Exception
-    {
-        public ExchangeOnlineException(string message, HttpStatusCode statusCode) :
-            base(message, new Exception($"HttpStatusCode: {statusCode}"))
-        {
+namespace ExchangeOnlineAdminRestApi;
 
-        }
+public class ExchangeOnlineException : Exception
+{
+    public ExchangeOnlineException(string message, HttpStatusCode statusCode) :
+        base(message, new Exception($"HttpStatusCode: {statusCode}"))
+    {
+
     }
 }
